@@ -1,0 +1,6 @@
+project: rnshah9/mod-auth-openidc
+target: mod-auth-openidc
+
+cmds:
+  - cmd: /mod_auth_openidc/test/test-cmd decrypt @@ /mod_auth_openidc/test.jwk
+    filepath: test.jwt
