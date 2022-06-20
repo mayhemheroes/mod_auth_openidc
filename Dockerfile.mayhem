@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:focal as builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -19,3 +19,12 @@ COPY . mod_auth_openidc
 RUN cd mod_auth_openidc && ./autogen.sh && \
 	./configure CFLAGS="-g -O0" LDFLAGS="-lrt" && \
 	make clean && make check && make install
+
+RUN mkdir -p /deps
+RUN ldd /repo/fe | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
+
+FROM ubuntu:20.04 as package
+
+COPY --from=builder /deps /deps
+COPY --from=builder /repo/fe /repo/fe
+ENV LD_LIBRARY_PATH=/deps
