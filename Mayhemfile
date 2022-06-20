@@ -2,5 +2,5 @@ project: mod-auth-openidc
 target: test-cmd
 
 cmds:
-  - cmd: /mod_auth_openidc/test/test-cmd decrypt test.jwt /mod_auth_openidc/test.jwk
+  - cmd: /mod_auth_openidc/test/test-cmd decrypt test.jwt /mod_auth_openidc/test.jwk 
     filepath: test.jwt
