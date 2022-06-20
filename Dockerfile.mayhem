@@ -21,10 +21,10 @@ RUN cd mod_auth_openidc && ./autogen.sh && \
 	make clean && make check && make install
 
 RUN mkdir -p /deps
-RUN ldd /repo/fe | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
+RUN ldd /mod_auth_openidc/test/test-cmd | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
 
 FROM ubuntu:20.04 as package
 
 COPY --from=builder /deps /deps
-COPY --from=builder /repo/fe /repo/fe
+COPY --from=builder /mod_auth_openidc/test/test-cmd /mod_auth_openidc/test/test-cmd
 ENV LD_LIBRARY_PATH=/deps
