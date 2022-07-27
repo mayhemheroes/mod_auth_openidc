@@ -20,11 +20,10 @@ RUN cd mod_auth_openidc && ./autogen.sh && \
 	./configure CFLAGS="-g -O0" LDFLAGS="-lrt" && \
 	make clean && make check && make install
 
-RUN mkdir -p /deps
-RUN ldd /mod_auth_openidc/test/test-cmd | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
-
 FROM ubuntu:focal as package
-
-COPY --from=builder /deps /deps
-COPY --from=builder /mod_auth_openidc/test/test-cmd /mod_auth_openidc/test/test-cmd
-ENV LD_LIBRARY_PATH=/deps
+RUN apt-get update && apt-get install -y \
+	libjansson-dev libcurl4-openssl-dev \
+	libpcre2-dev \
+	libcjose-dev libhiredis-dev \
+	libapr1 libapr1-dev libaprutil1
+COPY --from=builder /mod_auth_openidc/test/test-cmd /
