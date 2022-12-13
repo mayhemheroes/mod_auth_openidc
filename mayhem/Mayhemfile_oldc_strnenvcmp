@@ -1,5 +1,0 @@
-project: mod-auth-openidc
-target: oldc-strnenvcmp
-
-cmds:
-  - cmd: /fuzz_oldc_strnenvcmp

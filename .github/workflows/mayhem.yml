@@ -60,7 +60,7 @@ jobs:
       matrix:
         mayhemfile:
           - mayhem/Mayhemfile_test-cmd
-          - mayhem/Mayhemfile_oldc-strnenvcmp
+          - mayhem/Mayhemfile_oidc-strnenvcmp
 
     steps:
       - uses: actions/checkout@v3
